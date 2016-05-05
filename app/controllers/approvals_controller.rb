@@ -14,12 +14,12 @@ class ApprovalsController < ApplicationController
     as400_83m = ODBC.connect('approvals_m')
 
     if @ponum
-      sql_update_order = "UPDATE toolr_logt
+      sql_update_order = "UPDATE toolr_log
                           SET tlstatus04 = '4',
                               tlpono = '#{@ponum}'
                           WHERE tllinkkey = '#{repair_key}'"
     else
-      sql_update_order = "UPDATE toolr_logt
+      sql_update_order = "UPDATE toolr_log
                           SET tlstatus04 = '4'
                           WHERE tllinkkey = '#{repair_key}'"
     end
@@ -48,7 +48,7 @@ class ApprovalsController < ApplicationController
 
     as400_83m = ODBC.connect('approvals_m')
 
-    sql_update_order = "UPDATE toolr_logt
+    sql_update_order = "UPDATE toolr_log
                         SET tlstatus03 = '3',
                             tldeclinc = '#{decline_code}'
                         WHERE tllinkkey = '#{repair_key}'"
@@ -70,7 +70,7 @@ class ApprovalsController < ApplicationController
 
       sql_find_order = "SELECT a.tlorno, a.tlstatus03, a.tlstatus04, a.tlticket,
                                 c.cmcsno, c.cmcsnm, b.trmodel, b.trserial, d.tt$tot
-                        FROM toolr_logt AS a
+                        FROM toolr_log AS a
                         JOIN toolrpctl AS b ON b.trticket = a.tlticket
                         JOIN aplus83fds.cusms AS c ON c.cmcsno = b.trcsno
                         JOIN tooltot AS d ON d.ttpror = a.tlpror
