@@ -1,54 +1,40 @@
-<nav id="main-nav" class="navbar navbar-default">
+<div class="top-nav-bar">
   <div class="container">
-    <div class="navbar-header">
-      <% if logged_in? %>
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-      <% end %>
-      <%= link_to "DiVal Safety - First Aid", root_path, class: "navbar-brand" %>
+    <div class="top-nav-links">
+      <a href="http://www.divalsafety.com/index.php/locations-footer" target="_blank">Find a Branch</a>
+      <span>|</span>
+      <a href="http://www.divalsafety.com/index.php/contact-us-main" target="_blank">Help</a>
+      <span>|</span>
+      <a href="http://products.divalsafety.com/storefrontCommerce" target="_blank">Products</a>
+      <span>|</span>
+      <a href="http://www.divalsafety.com/index.php/events" target="_blank">Events</a>
+      <span>|</span>
+      <a href="http://www.divalsafety.com/index.php/services" target="_blank">Services</a>
+      <span>|</span>
+      <a href="http://www.divalsafety.com/index.php/training" target="_blank">Training</a>
     </div>
-
-    <% if logged_in? %>
-      <div class="collapse navbar-collapse">
-        <ul class="nav navbar-nav navbar-right">
-          <li class="right-20">
-            <%= link_to account_pricing_path do %>
-              <span class="glyphicon glyphicon-usd"></span>
-              Check Pricing
-            <% end %>
-          </li>
-          <% if current_user.admin? %>
-            <li class="right-20">
-              <%= link_to users_path do %>
-              <span class="glyphicon glyphicon-user"></span>
-              Techs
-              <% end %>
-            </li>
-          <% end %>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
-              <%= current_user.first_name %> <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu">
-              <li>
-                <%= link_to edit_user_path(current_user.id) do %>
-                  <span class="glyphicon glyphicon-pencil right-5"></span>
-                  <%= admin? ? 'Edit Profile' : 'Change Password' %>
-                <% end %>
-              </li>
-              <li>
-                <%= link_to logout_path, method: 'delete' do %>
-                  <span class="glyphicon glyphicon-log-out right-5"></span>
-                  Logout
-                <% end %>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-    <% end %>
   </div>
-</nav>
+</div>
+<div id="masthead">
+  <div class="container">
+    <div id="logoBanner">
+      <a href="http://www.divalsafety.com" target="_blank">
+        <%= image_tag "logo.png", alt: 'DiVal Safety Logo' %>
+      </a>
+    </div>
+    <div id="navBanner">
+      <div id="contact">
+        <span>1-800-343-1354</span>
+        <br/>
+        <span>24/7 Sales + Customer Service</span>
+      </div>
+      <div id="services">
+        <a href="http://www.divalsafety.com/index.php/events" target="_blank">Events</a>
+        <span>|</span>
+        <a href="http://www.divalsafety.com/index.php/services" target="_blank">Services</a>
+        <span>|</span>
+        <a href="http://www.divalsafety.com/index.php/training" target="_blank">Training</a>
+      </div>
+    </div>
+  </div>
+</div>

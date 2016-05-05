@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>First Aid - DiVal Safety</title>
+  <title>DiVal Safety Repair Shop</title>
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= favicon_link_tag 'favicon.ico' %>
@@ -10,14 +10,17 @@
 </head>
 <body>
   <div id="doc">
-    <div id="page-top">
+    <div id="header">
       <%= render 'layouts/navigation' %>
     </div>
-    <div id="page-main">
+    <div id="main">
       <div class="container">
         <%= render 'layouts/messages' %>
         <%= yield %>
       </div>
+    </div>
+    <div id="footer">
+      <%= render 'layouts/footer' %>
     </div>
   </div>
 </body>

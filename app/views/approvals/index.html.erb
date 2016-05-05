@@ -1,0 +1,58 @@
+<% if @ticket_num %>
+  <figure>
+    <%= image_tag "https://repair.divalsafety.com/toolrep/" + @ticket_num + "-B.jpg",
+      alt: "Tool Repair Image" %>
+  </figure>
+  <section id="details">
+    <dl>
+      <dt>Customer #:</dt>
+      <dd><%= @cust_num %></dd>
+      <dt>Customer:</dt>
+      <dd><%= @cust_name %></dd>
+      <dt>Repair Ticket:</dt>
+      <dd><%= @ticket_num %></dd>
+      <dt>Model #:</dt>
+      <dd><%= @model_num %></dd>
+      <dt>Serial #:</dt>
+      <dd><%= @serial_num %></dd>
+      <dt>Quote Total:</dt>
+      <dd>$<%= @order_total %></dd>
+    </dl>
+  </section>
+  <% unless @declined || @accepted %>
+    <section id="approve" class="well">
+      <%= form_tag('/approve', remote: true) do %>
+        <%= hidden_field_tag "repairkey", params[:repairkey] %>
+        <%= text_field_tag :ponum, nil, placeholder: "P.O. # (optional)" %>
+        <br />
+        <%= submit_tag "Approve", class: "btn btn-success",
+          data: { disable_with: "Updating..." } %>
+      <% end %>
+    </section>
+    <section id="decline" class="well well-sm">
+      <%= form_tag('/decline', remote: true) do %>
+        <%= hidden_field_tag "repairkey", params[:repairkey] %>
+        <div class="radio">
+          <label>
+            <%= radio_button_tag :decline_reason, "request", nil, required: "" %>
+            Request quote for new equipment
+          </label>
+        </div>
+        <div class="radio">
+          <label>
+            <%= radio_button_tag :decline_reason, "scrap" %>
+            Scrap equipment
+          </label>
+        </div>
+        <div class="radio">
+          <label>
+            <%= radio_button_tag :decline_reason, "return" %>
+            Return unrepaired
+          </label>
+        </div>
+        <%= submit_tag "Decline", id: "decline-btn", class: "btn btn-danger",
+          data: { disable_with: "Updating..." } %>
+      <% end %>
+    </section>
+  <% end %>
+<% end %>
