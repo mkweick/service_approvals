@@ -1,3 +1,4 @@
 $('#approve').remove();
 $('#decline').remove();
 $("<section id=\"result\">Ticket Declined</section>").insertAfter("#details")
+$("<section id=\"response_details\"><%= @decline_reason %></section>").insertAfter("#result")

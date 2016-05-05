@@ -14,18 +14,16 @@ gem 'jquery-turbolinks'
 gem 'jbuilder',         '~> 2.0'
 gem 'sdoc',             '~> 0.4.0', group: :doc
 
+gem 'sqlite3'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
-
 # gem 'bcrypt',         '~> 3.1.7'
-
-# gem 'sqlite3'
 # gem 'pg'
 
 group :development, :test do
-  gem 'sqlite3'
   gem 'byebug'
-  # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console',     '~> 2.0'
   gem 'spring'
+  gem 'pry'
 end

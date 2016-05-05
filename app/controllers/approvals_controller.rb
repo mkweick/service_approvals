@@ -31,12 +31,26 @@ class ApprovalsController < ApplicationController
   end
 
   def decline
+    @decline_code = params[:decline_code]
     repair_key = params[:repairkey]
+
+    case @decline_code
+    when 'quote'
+      decline_code = '1'
+      @decline_reason = "We will be quoting you on a new peice of<br />equipment and we'll reach out to you shortly!".html_safe
+    when 'scrap'
+      decline_code = '2'
+      @decline_reason = "We will be scrapping your equipment.<br />If this is a mistake, please call 1-800-343-1354.".html_safe
+    when 'return'
+      decline_code = '3'
+      @decline_reason = "We will be returning your equipment unrepaired.<br />If this is a mistake, please call 1-800-343-1354.".html_safe
+    end
 
     as400_83m = ODBC.connect('approvals_m')
 
     sql_update_order = "UPDATE toolr_logt
-                        SET tlstatus03 = '3'
+                        SET tlstatus03 = '3',
+                            tldeclinc = '#{decline_code}'
                         WHERE tllinkkey = '#{repair_key}'"
         
     as400_83m.run(sql_update_order)

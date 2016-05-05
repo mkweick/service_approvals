@@ -1,4 +1,8 @@
-var ponum;
 $('#approve').remove();
 $('#decline').remove();
-$("<section id=\"result\">Ticket Approved!</section>").insertAfter("#details")
+$("<section id=\"result\">Ticket Approved<p>Thanks for choosing DiVal Safety,\
+  our team is on it!</p></section>").insertAfter("#details")
+
+<% if @ponum %>
+  $("<section id=\"response_details\">Purchase Order Number: <%= @ponum %></section>").insertAfter("#result")
+<% end %>

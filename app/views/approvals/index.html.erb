@@ -34,19 +34,19 @@
         <%= hidden_field_tag "repairkey", params[:repairkey] %>
         <div class="radio">
           <label>
-            <%= radio_button_tag :decline_reason, "request", nil, required: "" %>
+            <%= radio_button_tag :decline_code, "quote", nil, required: "" %>
             Request quote for new equipment
           </label>
         </div>
         <div class="radio">
           <label>
-            <%= radio_button_tag :decline_reason, "scrap" %>
+            <%= radio_button_tag :decline_code, "scrap" %>
             Scrap equipment
           </label>
         </div>
         <div class="radio">
           <label>
-            <%= radio_button_tag :decline_reason, "return" %>
+            <%= radio_button_tag :decline_code, "return" %>
             Return unrepaired
           </label>
         </div>
