@@ -1,7 +1,6 @@
 <% if @ticket_num %>
   <figure>
-    <%= image_tag "https://repair.divalsafety.com/toolrep/" + @ticket_num + "-B.jpg",
-      alt: "Tool Repair Image" %>
+    <%= image_tag "#{@image_path}", alt: "#{@image_alt}" %>
   </figure>
   <section id="details">
     <dl>
