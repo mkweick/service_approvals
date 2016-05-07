@@ -24,7 +24,7 @@ class ApprovalsController < ApplicationController
       as400_83m.disconnect
 
       if order.nil?
-        flash.alert = "This is not a valid repair ticket."
+        flash.now.alert = "This is not a valid repair ticket."
       else
         order = order.first.map(&:strip)
         order_num = order[0]
