@@ -20,7 +20,7 @@
   </section>
   <% unless @declined || @accepted %>
     <section id="approve" class="well">
-      <%= form_tag('/approve', remote: true) do %>
+      <%= form_tag('/approve-repair', remote: true) do %>
         <%= hidden_field_tag "repairkey", params[:repairkey] %>
         <%= text_field_tag :ponum, nil, placeholder: "P.O. # (optional)" %>
         <br />
@@ -29,7 +29,7 @@
       <% end %>
     </section>
     <section id="decline" class="well well-sm">
-      <%= form_tag('/decline', remote: true) do %>
+      <%= form_tag('/decline-repair', remote: true) do %>
         <%= hidden_field_tag "repairkey", params[:repairkey] %>
         <div class="radio">
           <label>

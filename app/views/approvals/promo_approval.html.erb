@@ -1,0 +1,53 @@
+<% if @order_num %>
+  <section id="promo-details">
+    <dl>
+      <dt>Customer #:</dt>
+      <dd><%= @cust_num %></dd>
+      <dt>Customer:</dt>
+      <dd><%= @cust_name %></dd>
+      <dt>Order Number:</dt>
+      <dd><%= @order_num %></dd>
+      <dt>Purchase Order:</dt>
+      <dd><%= @po_num %></dd>
+      <% if @revision_num > 0 %>
+        <dt>Revision #:</dt>
+        <dd><%= @revision_num %></dd>
+      <% end %>
+    </dl>
+  </section>
+  <% if @action_required %>
+    <section id="approve" class="well">
+      <h4>Approved</h4>
+      <%= form_tag('/approve-promo', remote: true) do %>
+        <%= hidden_field_tag "company_num", @company_num %>
+        <%= hidden_field_tag "parent_order_num", @parent_order_num %>
+        <%= hidden_field_tag "order_num", @order_num %>
+        <%= hidden_field_tag "order_gen_num", @order_gen_num %>
+        <%= hidden_field_tag "cust_num", @cust_num %>
+        <%= hidden_field_tag "cust_name", @cust_name %>
+        <%= hidden_field_tag "po_num", @po_num %>
+        <%= hidden_field_tag "promokey", params[:promokey] %>
+        <%= submit_tag "Approve Order", class: "btn btn-success",
+          data: { disable_with: "Updating..." } %>
+      <% end %>
+    </section>
+    <section id="revise" class="well well-sm">
+      <h4>Not Approved</h4>
+      <h4>Revise Order</h4>
+      <%= form_tag('/change-promo', remote: true) do %>
+        <%= hidden_field_tag "company_num", @company_num %>
+        <%= hidden_field_tag "parent_order_num", @parent_order_num %>
+        <%= hidden_field_tag "order_num", @order_num %>
+        <%= hidden_field_tag "order_gen_num", @order_gen_num %>
+        <%= hidden_field_tag "cust_num", @cust_num %>
+        <%= hidden_field_tag "cust_name", @cust_name %>
+        <%= hidden_field_tag "po_num", @po_num %>
+        <%= hidden_field_tag "promokey", params[:promokey] %>
+        <%= text_area_tag "revisions", nil, placeholder: "Type revisions here",
+          maxlength: "250", required: "" %>
+        <%= submit_tag "Submit Revisions", id: "decline-btn", class: "btn btn-danger",
+          data: { disable_with: "Updating..." } %>
+      <% end %>
+    </section>
+  <% end %>
+<% end %>

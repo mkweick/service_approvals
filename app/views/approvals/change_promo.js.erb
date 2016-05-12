@@ -1,0 +1,6 @@
+$('#approve').remove();
+$('#revise').remove();
+$("<section id=\"result\">Order Not Approved</section>").insertAfter("#promo-details");
+$("<section id=\"response_details\">Our team is working on your revisions and<br />\
+    we'll send you another approval once finished!\
+    <h4>Revision Notes</h4><%= @revisions %></section>").insertAfter("#result");
