@@ -159,10 +159,10 @@ class ApprovalsController < ApplicationController
       @image_path = "no_image.png"
       @image_alt = "No image for Ticket #{@ticket_num}"
 
-      uri = URI.parse("https://repair.divalsafety.com/toolrep/" + @ticket_num + "-B.jpg")
+      uri = URI.parse("https://repair-images.divalsafety.com/toolrep/" + @ticket_num + "-B.jpg")
       response_code = Net::HTTP.get_response(uri).code
       if response_code == "200"
-        @image_path = "https://repair.divalsafety.com/toolrep/" + @ticket_num + "-B.jpg"
+        @image_path = "https://repair-images.divalsafety.com/toolrep/" + @ticket_num + "-B.jpg"
         @image_alt = "Image for Ticket #{@ticket_num}"
       end
 
