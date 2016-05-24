@@ -134,7 +134,7 @@ class ApprovalsController < ApplicationController
                       FROM toolr_log AS a
                       JOIN toolrpctl AS b ON b.trticket = a.tlticket
                       JOIN aplus83fds.cusms AS c ON c.cmcsno = b.trcsno
-                      JOIN tooltot AS d ON d.ttpror = a.tlpror
+                      JOIN tooltot AS d ON d.ttticket = a.tlticket
                       WHERE tllinkkey = '#{repair_key}'"
         
     stmt_find_order = as400_83m.run(sql_find_order)
