@@ -101,6 +101,7 @@ class ApprovalsController < ApplicationController
     cust_name = params[:cust_name]
     po_num = params[:po_num]
     @revisions = params[:revisions].strip
+    revisions = escape_apostrophes(@revisions)
     promo_key = params[:promokey]
     now = Time.now
     date = now.strftime("%Y%m%d")
@@ -114,7 +115,7 @@ class ApprovalsController < ApplicationController
                               pluser, pldate, pltime, pllinkkey, plcurupd)
                            VALUES ('#{company_num}', '#{parent_order_num}',
                               '#{order_num}', '#{order_gen_num}', '#{cust_num}',
-                              '#{cust_name}', '#{po_num}', 'CH', '#{@revisions}',
+                              '#{cust_name}', '#{po_num}', 'CH', '#{revisions}',
                               'WEB', '#{date}', '#{time}', '#{promo_key}', 'Y')"
 
     as400_83m.run(sql_insert_revision)
