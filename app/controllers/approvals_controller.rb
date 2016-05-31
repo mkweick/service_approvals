@@ -192,6 +192,7 @@ class ApprovalsController < ApplicationController
                                 plcsnm, plcspo, plstatus, pldate 
                          FROM promo_log
                          WHERE plpror = '#{parent_order_num}'
+                           AND plstatus IN ('AK','CH','AP')
                          ORDER BY pldate DESC, pltime DESC"
 
       stmt_status_rows = as400_83m.run(sql_status_rows)
