@@ -11,7 +11,12 @@ class ApprovalsController < ApplicationController
   end
 
   def approve_repair
-    @ponum = params[:ponum].strip unless params[:ponum].strip.blank?
+    case params[:approve_code]
+    when 'po' then @ponum = params[:ponum].strip
+    when 'verbal' then @ponum = params[:verbal].strip
+    when 'credit_card' then @credit_card = true
+    end
+
     repair_key = params[:repairkey]
 
     as400_83m = ODBC.connect('approvals_m')
@@ -20,6 +25,11 @@ class ApprovalsController < ApplicationController
       sql_update_order = "UPDATE toolr_log
                           SET tlstatus04 = '4',
                               tlpono = '#{@ponum}'
+                          WHERE tllinkkey = '#{repair_key}'"
+    elsif @credit_card
+      sql_update_order = "UPDATE toolr_log
+                          SET tlstatus04 = '4',
+                              tlcrdcust = 'Y'
                           WHERE tllinkkey = '#{repair_key}'"
     else
       sql_update_order = "UPDATE toolr_log

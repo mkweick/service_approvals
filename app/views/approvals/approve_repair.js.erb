@@ -6,3 +6,7 @@ $("<section id=\"result\">Ticket Approved<p>Thanks for choosing DiVal Safety,\
 <% if @ponum %>
   $("<section id=\"response_details\">Purchase Order Number: <%= @ponum %></section>").insertAfter("#result")
 <% end %>
+
+<% if @credit_card %>
+  $("<section id=\"response_details\">A DiVal professional will be calling to collect your credit card info shortly.</section>").insertAfter("#result")
+<% end %>

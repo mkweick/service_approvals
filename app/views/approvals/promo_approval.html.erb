@@ -16,7 +16,7 @@
     </dl>
   </section>
   <% if @action_required %>
-    <section id="approve" class="well">
+    <section id="approve-promo" class="well text-center">
       <h4>Approved</h4>
       <%= form_tag('/approve-promo', remote: true) do %>
         <%= hidden_field_tag "company_num", @company_num %>

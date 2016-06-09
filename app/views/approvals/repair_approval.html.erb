@@ -1,3 +1,22 @@
+<script>
+  $(document).ready(function() {
+    $("input[name='approve_code']").change(function() {
+      if ($('#approve_code_po').is(':checked')) {
+        $('#ponum').attr('required', 'required');
+      }
+      else {
+        $('#ponum').removeAttr('required');
+      }
+
+      if ($('#approve_code_verbal').is(':checked')) {
+        $('#verbal').attr('required', 'required');
+      }
+      else {
+        $('#verbal').removeAttr('required');
+      }
+    });
+  });
+</script>
 <% if @ticket_num %>
   <figure>
     <%= image_tag "#{@image_path}", alt: "#{@image_alt}" %>
@@ -19,16 +38,31 @@
     </dl>
   </section>
   <% unless @declined || @accepted %>
-    <section id="approve" class="well">
+    <section id="approve" class="well well-sm">
+      <h4>Approved</h4>
       <%= form_tag('/approve-repair', remote: true) do %>
         <%= hidden_field_tag "repairkey", params[:repairkey] %>
-        <%= text_field_tag :ponum, nil, placeholder: "P.O. # (optional)" %>
-        <br />
+        <div class="radio">
+          <%= radio_button_tag :approve_code, "po", nil, required: "" %>
+          <label for="approve_code_po">P.O. Number</label>
+          <%= text_field_tag :ponum, nil, maxlength: "30", placeholder: "P.O. Number" %>
+        </div>
+        <div class="radio">
+          <%= radio_button_tag :approve_code, "verbal", nil %>
+          <label for="approve_code_verbal">Verbal</label>
+          <%= text_field_tag :verbal, nil, maxlength: "30", placeholder: "Full Name" %>
+        </div>
+        <div class="radio">
+          <%= radio_button_tag :approve_code, "credit_card", nil %>
+          <label for="approve_code_credit_card">Credit Card</label>
+          <p>We'll call to collect your credit card info.</p>
+        </div>
         <%= submit_tag "Approve", class: "btn btn-success",
           data: { disable_with: "Updating..." } %>
       <% end %>
     </section>
     <section id="decline" class="well well-sm">
+      <h4>Not Approved</h4>
       <%= form_tag('/decline-repair', remote: true) do %>
         <%= hidden_field_tag "repairkey", params[:repairkey] %>
         <div class="radio">
