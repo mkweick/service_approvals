@@ -43,9 +43,15 @@
       <%= form_tag('/approve-repair', remote: true) do %>
         <%= hidden_field_tag "repairkey", params[:repairkey] %>
         <div class="radio">
-          <%= radio_button_tag :approve_code, "po", nil, required: "" %>
-          <label for="approve_code_po">P.O. Number</label>
-          <%= text_field_tag :ponum, nil, maxlength: "30", placeholder: "P.O. Number" %>
+          <% if @ponum %>
+            <%= radio_button_tag :approve_code, "po", true, required: "" %>
+            <label for="approve_code_po">P.O. Number</label>
+            <%= text_field_tag :ponum, @ponum, maxlength: "30", placeholder: "P.O. Number" %>
+          <% else %>
+            <%= radio_button_tag :approve_code, "po", false, required: "" %>
+            <label for="approve_code_po">P.O. Number</label>
+            <%= text_field_tag :ponum, nil, maxlength: "30", placeholder: "P.O. Number" %>
+          <% end %>
         </div>
         <div class="radio">
           <%= radio_button_tag :approve_code, "verbal", nil %>

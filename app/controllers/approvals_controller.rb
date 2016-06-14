@@ -29,6 +29,7 @@ class ApprovalsController < ApplicationController
     elsif @credit_card
       sql_update_order = "UPDATE toolr_log
                           SET tlstatus04 = '4',
+                              tlpono = '',
                               tlcrdcust = 'Y'
                           WHERE tllinkkey = '#{repair_key}'"
     else
@@ -140,17 +141,19 @@ class ApprovalsController < ApplicationController
     repair_key = params[:repairkey].strip
     as400_83m = ODBC.connect('approvals_m')
 
-    sql_find_order = "SELECT a.tlorno, a.tlstatus03, a.tlstatus04, a.tlticket,
-                             c.cmcsno, c.cmcsnm, b.trmodel, b.trserial, d.tt$tot
+    sql_find_order = "SELECT a.tlpror, a.tlorno, a.tlstatus03, a.tlstatus04,
+                             a.tlticket, c.cmcsno, c.cmcsnm, b.trmodel,
+                             b.trserial, d.tt$tot, e.ohcspo
                       FROM toolr_log AS a
                       JOIN toolrpctl AS b ON b.trticket = a.tlticket
                       JOIN aplus83fds.cusms AS c ON c.cmcsno = b.trcsno
                       JOIN tooltot AS d ON d.ttticket = a.tlticket
+                      JOIN aplus83fds.orhed AS e ON e.ohorno = a.tlorno
                       WHERE tllinkkey = '#{repair_key}'"
-        
+
     stmt_find_order = as400_83m.run(sql_find_order)
     order = stmt_find_order.fetch_all
-    
+
     as400_83m.commit
     as400_83m.disconnect
 
@@ -158,17 +161,22 @@ class ApprovalsController < ApplicationController
       flash.now.alert = "Repair ticket does not exist."
     else
       order = order.first.map(&:strip)
-      order_num = order[0]
-      @declined = order[1] == '3'
-      @accepted = order[2] == '4'
-      @ticket_num = order[3]
-      @cust_num = order[4]
-      @cust_name = order[5]
-      @model_num = order[6]
-      @serial_num = order[7]
-      @order_total = order[8]
+      parent_order_num = order[0]
+      order_num = order[1]
+      @declined = order[2] == '3'
+      @accepted = order[3] == '4'
+      @ticket_num = order[4]
+      @cust_num = order[5]
+      @cust_name = order[6]
+      @model_num = order[7]
+      @serial_num = order[8]
+      @order_total = order[9]
       @image_path = "no_image.png"
       @image_alt = "No image for Ticket #{@ticket_num}"
+
+      unless order[10].blank? || order[10].upcase == "PENDING"
+        @ponum = order[10].upcase
+      end
 
       uri = URI.parse("https://repair-images.divalsafety.com/toolrep/" + @ticket_num + "-B.jpg")
       response_code = Net::HTTP.get_response(uri).code
